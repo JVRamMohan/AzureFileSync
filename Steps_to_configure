@@ -1,0 +1,49 @@
+	-> Azure File Sync - Lab
+	
+Scenario - to sync data between two locations Central India  & US East
+
+Create RG & VMs
+
+		· Create a Resource Group 'AFS-RG-India-<Your Name>' - Location - Central India
+			Create a VM (DS2V2) + 128GB HDD in the same region 
+			§ Login to the VM - Initialize, format and give a drive letter to the 128GB HDD 
+			§ Create a Folder 'IndiaShare'
+			
+		· Create a Resource Group 'AFS-RG-US-<Your Name>' - Location - US East
+			Create a VM (DS2V2) + 128GB HDD in the same region 
+			§ Login to the VM - Initialize, format and give a drive letter to the 128GB HDD 
+			§ Create a Folder 'USShare'
+			
+Create Azure File Sync Service 
+	· Login to Azure Portal
+	· Create Azure File Sync Service in 'AFS-RG-India-<Your Name>' RG
+
+Create Storage Account & a File share
+	· Login to Azure Portal 
+	· Go Resource Group created in Central India region
+	· Create a Storage Account 
+	· Create a 100GB File share  
+	
+	
+Install - Azure Fie Sync Agent on both the VMs 
+	· Login to VM 
+	· Use Link - https://www.microsoft.com/en-us/download/details.aspx?id=57159 to download Azure File Sync agent in the VM in Azure
+		Prepare Windows Server to use with Azure File Sync
+			§ Open Server Manager.
+			§ Click Local Server:
+			§ On the Properties subpane, select the link for IE Enhanced Security Configuration.
+			§ In the Internet Explorer Enhanced Security Configuration dialog box, select Off for Administrators and Users:
+	· Select the right Azure File Sync Agent and Complete the installation 
+	· Post Installation - Complete the Configuration 
+		· Sign in to Azure - Provide your Azure Credentials 
+		· Provide Correct - Azure Subscription, Resource Group & Storage Sync Service and complete Registration 
+		
+Create a Sync Group and a cloud end point
+		· Go to Azure Portal. 
+		· Open Azure File Sync Service 
+		· Create Sync Group 
+			§ Add Cloud Endpoint (Name of the FileShare create in the Central India Storage Account)
+			§ Add Server end points
+				□ Registered Server  - Select server from the drop down menu
+				□ Path - Give the path folder create in the 128GB drive
+Post sync - data from India VM will be seen in the US VM
